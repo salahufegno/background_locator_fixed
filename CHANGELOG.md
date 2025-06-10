@@ -1,3 +1,6 @@
+## 2.0.7
+* Fix: Add namespace to android/build.gradle for AGP compatibility
+
 ## 2.0.6
 * Fixing iOS build
 * Fixing memory leak on Android
