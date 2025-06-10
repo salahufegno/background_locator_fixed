@@ -1,5 +1,6 @@
 ## 2.0.7
 * Fix: Add namespace to android/build.gradle for AGP compatibility
+* JVM compatibility adjustment for Kotlin
 
 ## 2.0.6
 * Fixing iOS build
