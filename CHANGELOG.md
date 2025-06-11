@@ -2,6 +2,7 @@
 * Fix: Add namespace to android/build.gradle for AGP compatibility
 * JVM compatibility adjustment for Kotlin
 * Update compilesdkversion and targetsdkversion to 34
+* Update Material Design version
 
 ## 2.0.6
 * Fixing iOS build
