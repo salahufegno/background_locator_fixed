@@ -4,11 +4,11 @@ import android.location.Location
 import android.os.Build
 import com.google.android.gms.location.LocationResult
 import yukams.app.background_locator_2.Keys
-import java.util.HashMap
+import kotlin.collections.HashMap
 
 class LocationParserUtil {
     companion object {
-        fun getLocationMapFromLocation(location: Location): HashMap<Any, Any> {
+        fun getLocationMapFromLocation(location: Location): HashMap<String, Any> {
             var speedAccuracy = 0f
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 speedAccuracy = location.speedAccuracyMetersPerSecond
@@ -28,11 +28,11 @@ class LocationParserUtil {
                     Keys.ARG_SPEED_ACCURACY to speedAccuracy,
                     Keys.ARG_HEADING to location.bearing,
                     Keys.ARG_TIME to location.time.toDouble(),
-                    Keys.ARG_PROVIDER to location.provider,
+                    Keys.ARG_PROVIDER to (location.provider ?: ""),
             )
         }
 
-        fun getLocationMapFromLocation(location: LocationResult?): HashMap<Any, Any>? {
+        fun getLocationMapFromLocation(location: LocationResult?): HashMap<String, Any>? {
             val firstLocation = location?.lastLocation ?: return null
 
             var speedAccuracy = 0f

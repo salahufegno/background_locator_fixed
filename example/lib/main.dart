@@ -32,15 +32,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    if (IsolateNameServer.lookupPortByName(
-            LocationServiceRepository.isolateName) !=
-        null) {
-      IsolateNameServer.removePortNameMapping(
-          LocationServiceRepository.isolateName);
+    if (IsolateNameServer.lookupPortByName(LocationServiceRepository.isolateName) != null) {
+      IsolateNameServer.removePortNameMapping(LocationServiceRepository.isolateName);
     }
 
-    IsolateNameServer.registerPortWithName(
-        port.sendPort, LocationServiceRepository.isolateName);
+    IsolateNameServer.registerPortWithName(port.sendPort, LocationServiceRepository.isolateName);
 
     port.listen(
       (dynamic data) async {
@@ -74,10 +70,7 @@ class _MyAppState extends State<MyApp> {
       return;
     }
 
-    await BackgroundLocator.updateNotificationText(
-        title: "new location received",
-        msg: "${DateTime.now()}",
-        bigMsg: "${data.latitude}, ${data.longitude}");
+    await BackgroundLocator.updateNotificationText(title: "new location received", msg: "${DateTime.now()}", bigMsg: "${data.latitude}, ${data.longitude}");
   }
 
   Future<void> initPlatformState() async {
@@ -203,17 +196,13 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-  Future<void> _startLocator() async{
+  Future<void> _startLocator() async {
     Map<String, dynamic> data = {'countInit': 1};
     return await BackgroundLocator.registerLocationUpdate(LocationCallbackHandler.callback,
         initCallback: LocationCallbackHandler.initCallback,
         initDataCallback: data,
         disposeCallback: LocationCallbackHandler.disposeCallback,
-        iosSettings: IOSSettings(
-            accuracy: LocationAccuracy.NAVIGATION,
-            distanceFilter: 0,
-            stopWithTerminate: true
-        ),
+        iosSettings: IOSSettings(accuracy: LocationAccuracy.NAVIGATION, distanceFilter: 0, stopWithTerminate: true),
         autoStop: false,
         androidSettings: AndroidSettings(
             accuracy: LocationAccuracy.NAVIGATION,
@@ -224,10 +213,8 @@ class _MyAppState extends State<MyApp> {
                 notificationChannelName: 'Location tracking',
                 notificationTitle: 'Start Location Tracking',
                 notificationMsg: 'Track location in background',
-                notificationBigMsg:
-                    'Background location is on to keep the app up-tp-date with your location. This is required for main features to work properly when the app is not running.',
+                notificationBigMsg: 'Background location is on to keep the app up-tp-date with your location. This is required for main features to work properly when the app is not running.',
                 notificationIconColor: Colors.grey,
-                notificationTapCallback:
-                    LocationCallbackHandler.notificationCallback)));
+                notificationTapCallback: LocationCallbackHandler.notificationCallback)));
   }
 }

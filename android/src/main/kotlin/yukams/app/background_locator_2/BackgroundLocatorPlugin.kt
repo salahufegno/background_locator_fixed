@@ -43,7 +43,7 @@ class BackgroundLocatorPlugin
         @SuppressLint("MissingPermission")
         @JvmStatic
         private fun registerLocator(context: Context,
-                                    args: Map<Any, Any>,
+                                    args: Map<String, Any>,
                                     result: Result?) {
             if (IsolateHolderService.isServiceRunning) {
                 // The service is running already
@@ -142,7 +142,7 @@ class BackgroundLocatorPlugin
         }
 
         @JvmStatic
-        private fun initializeService(context: Context, args: Map<Any, Any>) {
+        private fun initializeService(context: Context, args: Map<String, Any>) {
             val callbackHandle: Long = args[Keys.ARG_CALLBACK_DISPATCHER] as Long
             setCallbackDispatcherHandle(context, callbackHandle)
         }
@@ -170,7 +170,7 @@ class BackgroundLocatorPlugin
         }
 
         @JvmStatic
-        private fun updateNotificationText(context: Context, args: Map<Any, Any>) {
+        private fun updateNotificationText(context: Context, args: Map<String, Any>) {
             val intent = Intent(context, IsolateHolderService::class.java)
             intent.action = IsolateHolderService.ACTION_UPDATE_NOTIFICATION
             if (args.containsKey(Keys.SETTINGS_ANDROID_NOTIFICATION_TITLE)) {
@@ -219,7 +219,7 @@ class BackgroundLocatorPlugin
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             Keys.METHOD_PLUGIN_INITIALIZE_SERVICE -> {
-                val args: Map<Any, Any>? = call.arguments()
+                val args: Map<String, Any>? = call.arguments()
 
                    // save callback dispatcher to use it when device reboots
                 PreferencesManager.saveCallbackDispatcher(context!! , args!!)
@@ -231,7 +231,7 @@ class BackgroundLocatorPlugin
                 result.success(true)
             }
             Keys.METHOD_PLUGIN_REGISTER_LOCATION_UPDATE -> {
-                val args: Map<Any, Any>? = call.arguments()
+                val args: Map<String, Any>? = call.arguments()
 
                 // save setting to use it when device reboots
 
@@ -251,7 +251,7 @@ class BackgroundLocatorPlugin
                     return
                 }
 
-                val args: Map<Any, Any>? = call.arguments()
+                val args: Map<String, Any>? = call.arguments()
 
                     updateNotificationText(context!!, args!!)
 
